@@ -1,0 +1,23 @@
+version: "3.8"
+services: 
+  catalog:
+    depends_on:
+      - catalog-database
+    image: "catalog"
+    container_name: "catalog"
+    ports:
+      - 9001:9001
+    environment:
+      - BPL_JVM_THREAD_COUNT=50
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://catalog-database:5432/catalog_database
+      - TEST_PROFILES_ACTIVE=testdata
+
+  catalog-database:
+    image: "postgres:14.4"
+    container_name: "catalog-database"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=lekoba
+      - POSTGRES_PASSWORD=Lekoba#@1
+      - POSTGRES_DB=catalog_database
